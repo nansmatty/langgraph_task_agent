@@ -18,9 +18,14 @@
 		"typescript": "^5.9.3"
 	},
 	"dependencies": {
+		"@langchain/core": "^1.1.7",
+		"@langchain/langgraph": "^1.0.7",
+		"@langchain/openai": "^1.2.0",
 		"cors": "^2.8.5",
 		"dotenv": "^17.2.3",
 		"express": "^4.22.1",
+		"langchain": "^1.2.2",
+		"openai": "^6.15.0",
 		"zod": "^4.2.1"
 	}
 }
