@@ -34,7 +34,7 @@ function createHumanPrompt(steps: string[]) {
 
 export async function executeNode(state: State): Promise<Partial<State>> {
 	// In the video, instructor called it guardrails
-	if (!state.approved) return {};
+	if (!state.approve) return {};
 	const steps = state.steps ?? [];
 	if (steps.length === 0) return {};
 

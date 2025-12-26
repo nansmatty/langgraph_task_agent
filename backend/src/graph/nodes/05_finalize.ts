@@ -1,14 +1,14 @@
 import { State } from '../types';
 
 export async function finalizeNode(state: State): Promise<Partial<State>> {
-	const approved = state.approved ?? false;
+	const approve = state.approve ?? false;
 	const result = state.result ?? [];
 	const steps = state.steps ?? [];
 	const currentStatus = state.status;
 
 	let status: State['status'];
 
-	if (currentStatus === 'CANCELLED' || approved === false) {
+	if (currentStatus === 'CANCELLED' || approve === false) {
 		status = 'CANCELLED';
 	} else {
 		status = 'DONE';
@@ -23,7 +23,7 @@ export async function finalizeNode(state: State): Promise<Partial<State>> {
 			(steps.length
 				? `Task completed successfully with ${result.length} result(s).`
 				: steps.length
-				? 'Plan is approved but there were no steps to execute.'
+				? 'Plan is approve but there were no steps to execute.'
 				: 'Finshed successfully with no steps to execute.');
 	}
 

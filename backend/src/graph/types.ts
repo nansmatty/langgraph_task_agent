@@ -13,7 +13,7 @@ export const StepResult = z.object({
 export const StateSchema = z.object({
 	input: z.string().min(5, 'Input is required'),
 	steps: z.array(z.string()).optional(),
-	approved: z.boolean().optional(),
+	approve: z.boolean().optional(),
 	result: z.array(StepResult).optional(),
 	status: ExecutionState.optional(),
 	message: z.string().optional(),

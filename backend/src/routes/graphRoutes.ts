@@ -57,7 +57,7 @@ graphRoutes.post('/approve', async (req, res) => {
 
 	try {
 		const { threadId, approve } = parsed.data;
-		const finalState = await resumeAgentRun({ threadId, approved: approve });
+		const finalState = await resumeAgentRun({ threadId, approve: approve });
 		return res.status(200).json({ status: 'OK', data: { final: finalState } });
 	} catch (error) {
 		return res.status(500).json({ error: 'Internal server error during approval processing' });
