@@ -1,8 +1,9 @@
 'use client';
 
-import { Loader2, Sparkles } from 'lucide-react';
-import { Card, CardContent } from '../ui/card';
+import { AlertCircle, Loader2, Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { FinalView, InterruptView } from '@/lib/types';
+import { Button } from '../ui/button';
 
 const RunLogs = ({
 	interrupt,
@@ -26,6 +27,44 @@ const RunLogs = ({
 						<p className='text-2xl font-bold text-muted-foreground'>Agent is processing your request...</p>
 					</div>
 				</CardContent>
+			</Card>
+		);
+	}
+
+	if (interrupt) {
+		return (
+			<Card className='mt-5 border-primary/20'>
+				<div className='p-6'>
+					<CardHeader>
+						<CardTitle className='flex items-center gap-2 text-2xl'>
+							<AlertCircle className='h-5 w-5 text-yellow-500' />
+							Approval Required
+						</CardTitle>
+						<CardDescription className='text-base font-semibold px-3'>{interrupt.prompt}</CardDescription>
+					</CardHeader>
+					<CardContent className='space-y-5 mt-5'>
+						<div className='space-y-3'>
+							<h4 className='font-semibold text-sm text-muted-foreground uppercase tracking-wide'>Planned Steps</h4>
+							<ol className='space-y-2 pl-6 list-decimal'>
+								{interrupt.steps.map((step, index) => (
+									<li key={`${step}-${index}`} className='text-foreground leading-relaxed'>
+										{step}
+									</li>
+								))}
+							</ol>
+							<div className='mt-6 flex gap-3'>
+								<Button onClick={onApprove} className='flex-1'>
+									<ThumbsUp className='mr-2 h-4 w-4' />
+									Approve & Continue
+								</Button>
+								<Button onClick={onReject} variant='outline' className='flex-1 border-destructive/40'>
+									<ThumbsDown className='mr-2 h-4 w-4' />
+									Reject Plan
+								</Button>
+							</div>
+						</div>
+					</CardContent>
+				</div>
 			</Card>
 		);
 	}
