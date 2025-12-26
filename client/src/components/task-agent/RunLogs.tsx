@@ -1,9 +1,10 @@
 'use client';
 
-import { AlertCircle, Loader2, Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Loader2, Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { FinalView, InterruptView } from '@/lib/types';
 import { Button } from '../ui/button';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 
 const RunLogs = ({
 	interrupt,
@@ -46,7 +47,7 @@ const RunLogs = ({
 						<div className='space-y-3'>
 							<h4 className='font-semibold text-sm text-muted-foreground uppercase tracking-wide'>Planned Steps</h4>
 							<ol className='space-y-2 pl-6 list-decimal'>
-								{interrupt.steps.map((step, index) => (
+								{interrupt?.steps.map((step, index) => (
 									<li key={`${step}-${index}`} className='text-foreground leading-relaxed'>
 										{step}
 									</li>
@@ -65,6 +66,55 @@ const RunLogs = ({
 						</div>
 					</CardContent>
 				</div>
+			</Card>
+		);
+	}
+
+	if (final) {
+		return (
+			<Card className='mt-6'>
+				<CardHeader>
+					<div className='flex items-center justify-center '>
+						<CardTitle className='flex items-center gap-2 text-xl text-green-800'>
+							<CheckCircle2 className='h-5 w-5 text-green-500' />
+							Execution Result
+						</CardTitle>
+						<CardContent>
+							{final.message && (
+								<Alert>
+									<AlertTitle>Status Message</AlertTitle>
+									<AlertDescription>{final?.message}</AlertDescription>
+								</Alert>
+							)}
+							{final?.steps && final.steps.length > 0 && (
+								<div className='space-y-3 mt-6'>
+									<h4 className='text-2xl text-muted-foreground font-bold'>Execution Steps</h4>
+									<ol className='space-y-2 pl-6 list-decimal font-semibold'>
+										{final?.steps.map((step, index) => (
+											<li key={`${step}-${index}`} className='text-foreground leading-relaxed'>
+												{step}
+											</li>
+										))}
+									</ol>
+								</div>
+							)}
+
+							{final.result && final.result.length > 0 && (
+								<div className='space-y-3 mt-7'>
+									<h4 className='text-2xl text-muted-foreground font-bold'>Results</h4>
+									<ul className='space-y-3'>
+										{final.result.map((res, index) => (
+											<li key={`${res.step}-${index}`} className='bg-accent/30 rounded-lg p-4 border border-border/50'>
+												<p className='font-semibold text-foreground mb-1'>Step: {res.step}</p>
+												<p className='text-sm text-muted-foreground'>Note: {res.note}</p>
+											</li>
+										))}
+									</ul>
+								</div>
+							)}
+						</CardContent>
+					</div>
+				</CardHeader>
 			</Card>
 		);
 	}
